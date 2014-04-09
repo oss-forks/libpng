@@ -19,24 +19,17 @@ ELSE()
 	FIND_LIBRARY(M_LIBRARY NAMES m PATHS /usr/lib /usr/local/lib)
 ENDIF()
 
-INCLUDE_DIRECTORIES(
-	"${CMAKE_CURRENT_BINARY_DIR}"
-	"${CMAKE_CURRENT_SOURCE_DIR}"
-)
-
-CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.h.prebuilt"
-	"${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
-
 IF(MSVC)
 	ADD_DEFINITIONS(-D_CRT_SECURE_NO_DEPRECATE)
 ENDIF()
 
 ADD_LIBRARY(libpng STATIC
-	"${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h"
+	scripts/pnglibconf.h.prebuilt
 	png.h
 	pngconf.h
 	pngdebug.h
 	pnginfo.h
+	pnglibconf.h
 	pngpriv.h
 	pngstruct.h
 	png.c
